@@ -13,7 +13,7 @@ class Routes {
         return MaterialPageRoute(builder: (BuildContext context) => LoginScreen());
 
       case RoutesName.home:
-        return MaterialPageRoute( builder: (BuildContext context) =>HomeScreen(name: settings.arguments as Map));   
+        return MaterialPageRoute( builder: (BuildContext context) =>HomeScreen());   
 
       default:
         return MaterialPageRoute(builder: (context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm_with_rest_apis_using/utils/Utils.dart';
 import 'package:mvvm_with_rest_apis_using/utils/routes/routes_name.dart';
 
 import '../utils/routes/routes.dart';
@@ -20,8 +21,9 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Center(
         child: InkWell(
           onTap: () {
-             Navigator.popUntil(context, (route) => route.isFirst);
-             Navigator.pushReplacementNamed(context, RoutesName.home,arguments:{'name':"Saomd"} );     //* <--  yah Hai constructor Mein data send Karne Ka Tarika
+             Utils.toastMessage("Hello");
+             Utils.ftushBarErrorMessage("Error", context);
+             Utils.snackBar("No internet connection", context);
           },
           child: Text("Click"),
         ),
