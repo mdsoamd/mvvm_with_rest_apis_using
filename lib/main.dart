@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm_with_rest_apis_using/utils/routes/routes.dart';
 import 'package:mvvm_with_rest_apis_using/utils/routes/routes_name.dart';
-import 'package:mvvm_with_rest_apis_using/view/login_screen.dart';
+import 'package:mvvm_with_rest_apis_using/view/login_view.dart';
 
 void main() {
   runApp(const MyApp());
