@@ -12,8 +12,8 @@ class Utils {
       backgroundColor: Colors.black,
       textColor: Colors.white,
       fontSize: 15
-    
     );
+    
   }
 
 
