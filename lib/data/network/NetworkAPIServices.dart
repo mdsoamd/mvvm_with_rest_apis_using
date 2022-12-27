@@ -7,20 +7,22 @@ import 'package:mvvm_with_rest_apis_using/data/app_expositions.dart';
 import 'package:mvvm_with_rest_apis_using/data/network/BaseApiServices.dart';
 import 'package:http/http.dart' as http;
 
-class NetworkApiServices extends BaseAPIServices{
-
+class NetworkApiServices extends BaseAPIServices{   //* NetworkApiServices class Link this BaseAPIServices class
 
 
   @override
   Future getGetApiRespons(String url) async{
     // TODO: implement getGetApiRespons
+
     dynamic responseJson;
     try {
+
       final response = await http.get(Uri.parse(url)).timeout(Duration(seconds: 3));
-      responseJson = returnResponse(response);
+
+      responseJson = returnResponse(response);         //* <-- returnResponse Finction call
       
     } on SocketException {
-      throw FetchDataException('No Internet Conncetion');
+      throw FetchDataException('No Internet Conncetion');  //* <-- FetchDataException class call
     }
     return responseJson;
     
@@ -34,10 +36,8 @@ class NetworkApiServices extends BaseAPIServices{
 
 
   @override
-  Future getPostApiRespons(String url,dynamic data)async {
+  Future getPostApiRespons(String url,dynamic data)async {      //* <-- getPostApiRespons function call
     // TODO: implement getPostApiRespons
-
-
     
    dynamic responseJson;
     try {
@@ -46,7 +46,7 @@ class NetworkApiServices extends BaseAPIServices{
       body: data
 
      ).timeout(Duration(seconds: 10));
-      
+      responseJson = returnResponse(response);    //* <-- returnResponse Finction call
     } on SocketException {
       throw FetchDataException('No Internet Conncetion');
     }
@@ -59,6 +59,8 @@ class NetworkApiServices extends BaseAPIServices{
 
 
 
+
+// TODO returnResponse Function Create
 dynamic returnResponse (http.Response response){
 
   switch(response.statusCode){
@@ -66,12 +68,12 @@ dynamic returnResponse (http.Response response){
        dynamic responseJson = jsonDecode(response.body);
        return responseJson;
       case 400:
-        throw BadRequestException(response.body.toString());
+        throw BadRequestException(response.body.toString());   //* <-- BadRequestException class Call
       case 500:
       case 404:
-       throw UnauthorisedException(response.body.toString());
+       throw UnauthorisedException(response.body.toString());   //* <-- UnauthorisedException class Call
       default :
-       throw FetchDataException(' Error accured white communicating with server '+
+       throw FetchDataException(' Error accured white communicating with server '+   //* <-- FetchDataException  class Call
               'with status code' +response.statusCode.toString());
      }
   
