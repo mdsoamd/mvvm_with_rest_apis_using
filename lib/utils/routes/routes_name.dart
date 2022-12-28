@@ -1,5 +1,8 @@
 class RoutesName {
    
+
+  static const String splash = 'splash_screen';
+
    //* Login Routes Name
   static const String login = 'login_screen';
   

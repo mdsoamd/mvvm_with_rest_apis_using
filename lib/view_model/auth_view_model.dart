@@ -1,9 +1,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mvvm_with_rest_apis_using/model/user_model.dart';
 import 'package:mvvm_with_rest_apis_using/repository/auth_repository.dart';
 import 'package:mvvm_with_rest_apis_using/utils/Utils.dart';
 import 'package:mvvm_with_rest_apis_using/utils/routes/routes_name.dart';
+import 'package:mvvm_with_rest_apis_using/view_model/user_view_model.dart';
 
 class AuthViewModel with ChangeNotifier{
   
@@ -34,7 +36,7 @@ class AuthViewModel with ChangeNotifier{
   
 
 
-  
+
 
 
 //TODO Create loginApi Function 
@@ -45,8 +47,9 @@ class AuthViewModel with ChangeNotifier{
         setLoading(false);
         Utils.ftushBarErrorMessage("Login Successfully", context);
         Navigator.pushNamed(context, RoutesName.home);
+
        if(kDebugMode){
-          print(value.toString());
+          // print(value.toString());
        }
      }).onError((error, stackTrace){
          setLoading(false);

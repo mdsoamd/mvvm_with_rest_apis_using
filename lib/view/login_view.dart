@@ -3,6 +3,7 @@ import 'package:mvvm_with_rest_apis_using/res/components/round_button.dart';
 import 'package:mvvm_with_rest_apis_using/utils/Utils.dart';
 import 'package:mvvm_with_rest_apis_using/utils/routes/routes_name.dart';
 import 'package:mvvm_with_rest_apis_using/view_model/auth_view_model.dart';
+import 'package:mvvm_with_rest_apis_using/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/routes/routes.dart';
@@ -139,11 +140,17 @@ class _LoginViewState extends State<LoginView> {
 
                 }else{
                     
+                    // Map data ={
+                    //   'email':_emailController.text.toString(),
+                    //   'password':_passwordController.text.toString()
+                    // };
+
                     Map data ={
-                      'email':_emailController.text.toString(),
-                      'password':_passwordController.text.toString()
+                      'email':'eve.holt@reqres.in',
+                      'password':'pistol'
                     };
                     authViewModel.loginApi(data,context);  //* LoginApi Function call
+                   
                     print("Api Hit");
 
                 }
