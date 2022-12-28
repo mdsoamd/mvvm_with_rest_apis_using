@@ -10,14 +10,14 @@ import '../utils/routes/routes.dart';
 
 
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+class SignUpView extends StatefulWidget {
+  const SignUpView({Key? key}) : super(key: key);
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignUpView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends State<SignUpView> {
 
   ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
 
@@ -52,7 +52,7 @@ class _LoginViewState extends State<LoginView> {
     final hight = MediaQuery.of(context).size.height * 1 ;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("SignUp"),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -121,9 +121,9 @@ class _LoginViewState extends State<LoginView> {
 
               RoundButton(
 
-                loading:authViewModel.loading,
+                loading:authViewModel.sigUploading, 
 
-                title: "Login", onPerss:(){
+                title: "SigUp", onPerss:(){
 
                 if(_emailController.text.isEmpty){
 
@@ -143,7 +143,7 @@ class _LoginViewState extends State<LoginView> {
                       'email':_emailController.text.toString(),
                       'password':_passwordController.text.toString()
                     };
-                    authViewModel.loginApi(data,context);  //* LoginApi Function call
+                    authViewModel.sigUpApi(data,context);  //* sigUpApi Function call
                     print("Api Hit");
 
                 }
@@ -154,9 +154,9 @@ class _LoginViewState extends State<LoginView> {
            SizedBox(height: hight * .05,),
            InkWell(
             onTap: () {
-              Navigator.pushNamed(context, RoutesName.sigUp);
+              Navigator.pushNamed(context, RoutesName.login);
             },
-            child: Text("Don't have account? SignUp"))
+            child: Text("Already have an account? Login"))
 
 
 

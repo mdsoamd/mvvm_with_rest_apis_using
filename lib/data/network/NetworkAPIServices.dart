@@ -35,7 +35,7 @@ class NetworkApiServices extends BaseAPIServices{   //* NetworkApiServices class
 
 
 
-  @override
+  @override 
   Future getPostApiRespons(String url,dynamic data)async {      //* <-- getPostApiRespons function call
     // TODO: implement getPostApiRespons
     

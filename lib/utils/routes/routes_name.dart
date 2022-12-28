@@ -5,5 +5,9 @@ class RoutesName {
   
    //* Home Screen Routes Name
   static const String home = 'home_screen';
+
+  static const String sigUp = 'signup_screen';
+  
+
   
 }
