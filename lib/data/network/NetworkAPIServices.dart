@@ -11,13 +11,13 @@ class NetworkApiServices extends BaseAPIServices{   //* NetworkApiServices class
 
 
   @override
-  Future getGetApiRespons(String url) async{
+  Future getGetApiRespons(String Url) async{
     // TODO: implement getGetApiRespons
 
     dynamic responseJson;
     try {
 
-      final response = await http.get(Uri.parse(url)).timeout(Duration(seconds: 3));
+      final response = await http.get(Uri.parse(Url)).timeout(Duration(seconds: 10));
 
       responseJson = returnResponse(response);         //* <-- returnResponse Finction call
       
@@ -74,7 +74,7 @@ dynamic returnResponse (http.Response response){
        throw UnauthorisedException(response.body.toString());   //* <-- UnauthorisedException class Call
       default :
        throw FetchDataException(' Error accured white communicating with server '+   //* <-- FetchDataException  class Call
-              'with status code' +response.statusCode.toString());
+              'with status code' + response.statusCode.toString());
      }
   
   
@@ -84,3 +84,5 @@ dynamic returnResponse (http.Response response){
   
 
 }
+
+

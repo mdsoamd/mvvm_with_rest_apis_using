@@ -6,6 +6,7 @@ import 'package:mvvm_with_rest_apis_using/repository/auth_repository.dart';
 import 'package:mvvm_with_rest_apis_using/utils/Utils.dart';
 import 'package:mvvm_with_rest_apis_using/utils/routes/routes_name.dart';
 import 'package:mvvm_with_rest_apis_using/view_model/user_view_model.dart';
+import 'package:provider/provider.dart';
 
 class AuthViewModel with ChangeNotifier{
   
@@ -45,6 +46,12 @@ class AuthViewModel with ChangeNotifier{
 
      _myRepo.login(data).then((value){      //* <-- login function call
         setLoading(false);
+        final userPreferences = Provider.of<UserViewModel>(context,listen: false);
+        userPreferences.saveUser(
+          UserModel(
+            token: value['token'].toString()
+          )
+        );
         Utils.ftushBarErrorMessage("Login Successfully", context);
         Navigator.pushNamed(context, RoutesName.home);
 
@@ -66,7 +73,16 @@ class AuthViewModel with ChangeNotifier{
   Future<void> sigUpApi(dynamic data,BuildContext context)async{
       setSigUpLoading(true);
      _myRepo.sigUpApi(data).then((value){      //* <-- login function call
+         if(kDebugMode){
+          print(value);
+         }
         setSigUpLoading(false);
+        final userPreferences = Provider.of<UserViewModel>(context,listen: false);
+        userPreferences.saveUser(
+          UserModel(
+            token: value['token'].toString()
+          )
+        );
         Utils.ftushBarErrorMessage("SigUp Successfully", context);
         Navigator.pushNamed(context, RoutesName.home);
        if(kDebugMode){
