@@ -1,4 +1,5 @@
 class MovieListModel {
+  
   List<Movies>? movies;
 
   MovieListModel({this.movies});
@@ -35,7 +36,7 @@ class Movies {
   String? originalTitle;
   String? storyline;
   List<String>? actors;
-  String? imdbRating;
+  dynamic? imdbRating;
   String? posterurl;
 
   Movies(

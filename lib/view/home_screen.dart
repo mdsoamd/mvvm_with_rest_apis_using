@@ -1,8 +1,8 @@
 
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mvvm_with_rest_apis_using/data/response/status.dart';
+import 'package:mvvm_with_rest_apis_using/utils/Utils.dart';
 import 'package:mvvm_with_rest_apis_using/utils/routes/routes_name.dart';
 import 'package:mvvm_with_rest_apis_using/view_model/home_view_model.dart';
 import 'package:mvvm_with_rest_apis_using/view_model/user_view_model.dart';
@@ -21,18 +21,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  HomeViewViewModel homeViewViewModel = HomeViewViewModel();
+
+
+ HomeViewViewModel homeViewViewModel = HomeViewViewModel();  //TODO Create object HomeViewViewModel with Provider Class
 
   
+
+
   @override
   void initState() {
     // TODO: implement initState
+    homeViewViewModel.fatchMoviesListApi();   //* <-- This fatchMoviesListApi() Function Call
     super.initState();
-    homeViewViewModel.fatchMoviesListApi().then((value){
-      if(kDebugMode){
-        print("run");
-      }
-    });
   }
 
   
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           InkWell(
             onTap: (){
-              userPreferences.remove().then((value){
+              userPreferences.remove().then((value){             //* <-- User Token remove call
                  Navigator.pushNamed(context, RoutesName.login);
               });
             },
@@ -56,28 +56,56 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(width: 20,)
         ],
       ),  
-      body: ChangeNotifierProvider<HomeViewViewModel>(create: (context) => HomeViewViewModel(),
+      body: ChangeNotifierProvider<HomeViewViewModel>(create: (context) => homeViewViewModel,
       child: Consumer<HomeViewViewModel>(builder: (context, value, child) {
 
-        switch (value.moviesList.status){
+        switch(value.moviesList.status){
           case Status.LOADING:
            return Center(child: CircularProgressIndicator());
+
           case Status.ERROR:
-           return Center(child:Text(value.moviesList.message.toString()));
+           return InkWell(
+            onTap: (() {
+              value.fatchMoviesListApi();
+            }),
+            child: Center(child:Text(value.moviesList.message.toString())));
+
           case Status.COMPLETED:
+
            return ListView.builder(
            itemCount: value.moviesList.data!.movies!.length,
             itemBuilder:(context, index) {
+
               return Card(
                     child: ListTile(
+                      leading: Image.network(value.moviesList.data!.movies![index].posterurl.toString(),
+
+                      errorBuilder: (context, error, stackTrace) {      //* <-- errorBuilder use
+                        return Icon(Icons.error,color: Colors.red,); //* <-- image corrupt or url Mina koy issue hoga to Icons.error Show karega
+                      },
+
+                      height: 40,
+                      width: 40,
+                      fit: BoxFit.cover,
+
+                      ),
+                      
                       title: Text(value.moviesList.data!.movies![index].title.toString()),
-                      //  subtitle: Text(value.moviesList.data!.entries![index].description.toString()),
+                      subtitle: Text(value.moviesList.data!.movies![index].year.toString()),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(Utils.averageRating(value.moviesList.data!.movies![index].ratings!).toStringAsFixed(1)),   //* <-- Utils class averageRating() Function Call
+                          Icon(Icons.star,color: Colors.yellow,)
+
+                        ],
+                      ),
                     ),
               );
            },);
 
-        // default:
-        //  return Text("NO Data");
+         default:
+         return Text("NO Data");
           
         }
         
@@ -87,6 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       );
       },),
+
+
       )
      );
   }

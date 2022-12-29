@@ -21,15 +21,30 @@ class HomeViewViewModel with ChangeNotifier{
   Future<void> fatchMoviesListApi ()async{
 
       setMoviesList(ApiResponse.loading());
+
        print('data loading');
+
       _myRepo.fetchMoviesList().then((value){
-       print('data no load');
+
        setMoviesList(ApiResponse.completed(value));
+
+       print('data this --> $value');
+
     }).onError((error, stackTrace){
+
        setMoviesList(ApiResponse.error(error.toString()));
+
     });
     print('End Run');
   }
+
+
+
+
+
+
+
+
 
 
 
