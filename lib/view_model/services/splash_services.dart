@@ -7,19 +7,29 @@ import 'package:mvvm_with_rest_apis_using/view_model/user_view_model.dart';
 
 class SplashServices {
 
- Future<UserModel> getUsertData() => UserViewModel().getUser();
+ Future<UserModel> getUsertData() => UserViewModel().getUser();   //* <-- getUser Function get and find    
 
 
  void checkAuthentictation(BuildContext context)async{
 
-  getUsertData().then((value){
-    print(value.token.toString());
-    if(value.token.toString() == 'null' || value.token.toString() == ''){
+  getUsertData().then((value){      //* <-- getUser Function call
+
+    if(kDebugMode){
+      print(value.token.toString());
+    }
+   
+
+    if(value.token.toString() == 'null' || value.token.toString() == ''){    //* <-- Token check
       Future.delayed(Duration(seconds: 3));
-      Navigator.pushNamed(context, RoutesName.login);
+
+      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.pushReplacementNamed(context, RoutesName.login);
+
     }else{
-       Future.delayed(Duration(seconds: 3));
-       Navigator.pushNamed(context, RoutesName.home);
+      Future.delayed(Duration(seconds: 3));
+
+      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.pushReplacementNamed(context, RoutesName.home);
      
     }
 

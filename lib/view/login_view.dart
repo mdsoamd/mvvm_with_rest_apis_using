@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mvvm_with_rest_apis_using/res/components/round_button.dart';
 import 'package:mvvm_with_rest_apis_using/utils/Utils.dart';
@@ -149,9 +150,13 @@ class _LoginViewState extends State<LoginView> {
                       'email':'eve.holt@reqres.in',
                       'password':'pistol'
                     };
+
                     authViewModel.loginApi(data,context);  //* LoginApi Function call
+                     
+                    if(kDebugMode){
+                       print("Api hit");
+                    }
                    
-                    print("Api Hit");
 
                 }
                 

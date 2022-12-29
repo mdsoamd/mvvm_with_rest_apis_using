@@ -6,6 +6,7 @@ import 'package:mvvm_with_rest_apis_using/repository/auth_repository.dart';
 import 'package:mvvm_with_rest_apis_using/utils/Utils.dart';
 import 'package:mvvm_with_rest_apis_using/utils/routes/routes_name.dart';
 import 'package:mvvm_with_rest_apis_using/view_model/user_view_model.dart';
+import 'package:provider/provider.dart';
 
 class AuthViewModel with ChangeNotifier{
   
@@ -45,18 +46,24 @@ class AuthViewModel with ChangeNotifier{
 
      _myRepo.login(data).then((value){      //* <-- login function call
         setLoading(false);
-        Utils.ftushBarErrorMessage("Login Successfully", context);
+
+        final userPreferences = Provider.of<UserViewModel>(context,listen: false);
+        userPreferences.saveUser(           //* <-- Token saveUser Function call
+          UserModel(
+            token: value['token'].toString()
+          )
+        );
+
+        Utils.ftushBarErrorMessage("Login Successfully", context); 
         Navigator.pushNamed(context, RoutesName.home);
 
-       if(kDebugMode){
-          // print(value.toString());
-       }
+       
      }).onError((error, stackTrace){
          setLoading(false);
+         Utils.ftushBarErrorMessage(error.toString(),context);
          if(kDebugMode){ 
-          Utils.ftushBarErrorMessage(error.toString(),context);
-          print(error.toString());
-       }
+           print(error.toString());
+         }
      });
   }
 
@@ -67,15 +74,25 @@ class AuthViewModel with ChangeNotifier{
       setSigUpLoading(true);
      _myRepo.sigUpApi(data).then((value){      //* <-- login function call
         setSigUpLoading(false);
+
+        final userPreferences = Provider.of<UserViewModel>(context,listen: false);
+        userPreferences.saveUser(            //* <-- Token saveUser Function call
+          UserModel(
+            token: value['token'].toString()
+          )
+        );
+
+
         Utils.ftushBarErrorMessage("SigUp Successfully", context);
         Navigator.pushNamed(context, RoutesName.home);
        if(kDebugMode){
           print(value.toString());
        }
+
      }).onError((error, stackTrace){
          setSigUpLoading(false);
-         if(kDebugMode){ 
           Utils.ftushBarErrorMessage(error.toString(),context);
+         if(kDebugMode){ 
           print(error.toString());
        }
      });

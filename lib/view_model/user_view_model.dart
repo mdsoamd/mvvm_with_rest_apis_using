@@ -10,7 +10,7 @@ class UserViewModel with ChangeNotifier{
 
 
  //TODO User Save Token Function Create
-  Future<bool> saveUser(BuildContext context, UserModel user)async{
+  Future<bool> saveUser(UserModel user)async{
 
     final SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setString('token', user.token.toString());
@@ -35,8 +35,8 @@ class UserViewModel with ChangeNotifier{
 
 
 
-
-  void remove()async{
+   //TODO User Token Remove Function Create
+   remove()async{
     final SharedPreferences sp = await SharedPreferences.getInstance();
     // sp.clear();
     sp.remove('token');

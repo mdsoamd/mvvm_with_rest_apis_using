@@ -143,6 +143,7 @@ class _LoginViewState extends State<SignUpView> {
                       'email':_emailController.text.toString(),
                       'password':_passwordController.text.toString()
                     };
+                    
                     authViewModel.sigUpApi(data,context);  //* sigUpApi Function call
                     print("Api Hit");
 

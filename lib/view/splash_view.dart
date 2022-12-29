@@ -12,11 +12,14 @@ class _SplashViewState extends State<SplashView> {
 
 
 SplashServices splashServices = SplashServices();   //TODO Create Objcet SplashServices class
+
+
+
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    splashServices.checkAuthentictation(context);
+    splashServices.checkAuthentictation(context);     //* <-- checkAuthentictation Function call
   }
 
 
