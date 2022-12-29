@@ -14,7 +14,7 @@ class SplashServices {
 
   getUsertData().then((value){
     print(value.token.toString());
-    if(value.token == 'null' || value.token == ''){
+    if(value.token.toString() == 'null' || value.token.toString() == ''){
       Future.delayed(Duration(seconds: 3));
       Navigator.pushNamed(context, RoutesName.login);
     }else{

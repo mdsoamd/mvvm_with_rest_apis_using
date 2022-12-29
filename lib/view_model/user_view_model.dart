@@ -36,12 +36,12 @@ class UserViewModel with ChangeNotifier{
 
 
 
-  // void remove()async{
-  //   final SharedPreferences sp = await SharedPreferences.getInstance();
-  //   sp.clear();
-  //   //sp.remove('token');
+  void remove()async{
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    // sp.clear();
+    sp.remove('token');
 
-  // }
+  }
 
 
 
